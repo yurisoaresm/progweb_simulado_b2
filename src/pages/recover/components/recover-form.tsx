@@ -1,5 +1,6 @@
 'use client';
 
+import { useRouter } from 'next/router';
 import * as React from 'react';
 
 import { Icons } from '@/components/icons';
@@ -11,15 +12,27 @@ import { cn } from '@/lib/utils';
 interface RecoverFormProps extends React.HTMLAttributes<HTMLDivElement> {}
 
 export function RecoverForm({ className, ...props }: RecoverFormProps) {
+  const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit(event: React.SyntheticEvent) {
-    event.preventDefault();
+  async function onSubmit() {
     setIsLoading(true);
 
     setTimeout(() => {
       setIsLoading(false);
     }, 3000);
+
+    router.push('/login');
+  }
+
+  async function onSubmitThirdParties() {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    router.push('/dashboard');
   }
 
   return (
@@ -58,14 +71,36 @@ export function RecoverForm({ className, ...props }: RecoverFormProps) {
           </span>
         </div>
       </div>
-      <Button variant="outline" type="button" disabled={isLoading}>
-        {isLoading ? (
-          <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
-        ) : (
-          <Icons.gitHub className="mr-2 h-4 w-4" />
-        )}{' '}
-        Github
-      </Button>
+
+      <div className="grid grid-cols-2 gap-6">
+        <Button
+          onClick={onSubmitThirdParties}
+          variant="outline"
+          type="button"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.gitHub className="mr-2 h-4 w-4" />
+          )}{' '}
+          Github
+        </Button>
+
+        <Button
+          onClick={onSubmitThirdParties}
+          variant="outline"
+          type="button"
+          disabled={isLoading}
+        >
+          {isLoading ? (
+            <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+          ) : (
+            <Icons.twitter className="mr-2 h-4 w-4" />
+          )}{' '}
+          Twitter
+        </Button>
+      </div>
     </div>
   );
 }

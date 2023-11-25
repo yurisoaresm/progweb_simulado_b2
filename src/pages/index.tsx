@@ -1,13 +1,18 @@
-import { Inter } from '@next/font/google';
 import Head from 'next/head';
 import Image from 'next/image';
-import Link from 'next/link';
+import { useRouter } from 'next/router';
 
-import styles from '@/styles/Home.module.css';
-
-const inter = Inter({ subsets: ['latin'] });
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 
 export default function Home() {
+  const router = useRouter();
   return (
     <>
       <Head>
@@ -16,72 +21,43 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
-        <div className="relative flex flex-col justify-center items-center">
-          <p className="text-2xl font-bold text-center">
-            Escolha para onde deseja navegar abaixo:
-          </p>
+      <div className="text-center relative flex flex-col justify-center items-center min-h-screen overflow-hidden">
+        <div className="content-center w-full m-auto bg-white lg:max-w-lg">
+          <Card className="px-8 py-16">
+            <div className=" flex flex-col items-center">
+              <Image
+                src="/next.svg"
+                alt="Next.js Logo"
+                width={200}
+                height={200}
+              />
+            </div>
+            <CardHeader className="space-y-1">
+              <CardTitle className="text-2xl text-center">
+                Bem-vindo ao Projeto
+              </CardTitle>
+              <CardDescription className="text-center text-md">
+                Next.js + TailwindCSS
+              </CardDescription>
+            </CardHeader>
+
+            <CardContent>
+              Para começar, faça login na sua conta ou crie uma nova conta:
+            </CardContent>
+            <div className="grid grid-cols-2 gap-2 m-2">
+              <Button className=" flex-1" onClick={() => router.push('/login')}>
+                Entrar
+              </Button>
+              <Button
+                className=" flex-1"
+                onClick={() => router.push('/registro')}
+              >
+                Registrar-se
+              </Button>
+            </div>
+          </Card>
         </div>
-
-        <div className={styles.grid}>
-          <Link
-            href="/login"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Login <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Vá para /login e entre na tela de login para acessar o sistema.
-            </p>
-          </Link>
-
-          <Link
-            href="/registro"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Registro <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Ainda não tem uma conta? Acesse /registro e registre-se agora
-              mesmo!
-            </p>
-          </Link>
-
-          <Link
-            href="/recover"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Recuperação de senha <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Oh não! Esqueceu sua senha? Acesse /recover e recupere sua senha
-            </p>
-          </Link>
-
-          <Link
-            href="/dashboard"
-            className={styles.card}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <h2 className={inter.className}>
-              Painel Principal <span>-&gt;</span>
-            </h2>
-            <p className={inter.className}>
-              Acesse /dashboard para analisar os dados aleatórios
-            </p>
-          </Link>
-        </div>
-      </main>
+      </div>
     </>
   );
 }

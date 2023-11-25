@@ -1,39 +1,46 @@
 'use client';
 
 import { useRouter } from 'next/router';
+import React from 'react';
 
 import { Icons } from '@/components/icons';
 import { Button } from '@/components/ui/button';
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from '@/components/ui/card';
+import { CardContent, CardFooter } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 
-export function CreateAccount() {
+export function CreateAccountForm() {
   const router = useRouter();
+  const [isLoading, setIsLoading] = React.useState<boolean>(false);
+
+  async function onSubmit() {
+    setIsLoading(true);
+
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000);
+
+    router.push('/dashboard');
+  }
 
   return (
-    <Card>
-      <CardHeader className="space-y-1">
-        <CardTitle className="text-2xl">Criar uma conta</CardTitle>
-        <CardDescription>
-          Entre com seu email e senha para poder criar uma conta
-        </CardDescription>
-      </CardHeader>
+    <form onSubmit={onSubmit}>
       <CardContent className="grid gap-4">
         <div className="grid grid-cols-2 gap-6">
-          <Button variant="outline">
-            <Icons.gitHub className="mr-2 h-4 w-4" />
+          <Button disabled={isLoading} variant="outline">
+            {isLoading ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Icons.gitHub className="mr-2 h-4 w-4" />
+            )}
             Github
           </Button>
-          <Button variant="outline">
-            <Icons.google className="mr-2 h-4 w-4" />
+          <Button disabled={isLoading} variant="outline">
+            {isLoading ? (
+              <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />
+            ) : (
+              <Icons.google className="mr-2 h-4 w-4" />
+            )}
             Google
           </Button>
         </div>
@@ -57,10 +64,11 @@ export function CreateAccount() {
         </div>
       </CardContent>
       <CardFooter>
-        <Button onClick={() => router.push('/')} className="w-full">
+        <Button disabled={isLoading} className="w-full">
+          {isLoading && <Icons.spinner className="mr-2 h-4 w-4 animate-spin" />}
           Criar conta
         </Button>
       </CardFooter>
-    </Card>
+    </form>
   );
 }
