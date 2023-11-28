@@ -1,7 +1,7 @@
 'use client';
 
 import Link from 'next/link';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 import * as React from 'react';
 
 import { Icons } from '@/components/icons';
@@ -17,7 +17,8 @@ export function LoginForm({ className, ...props }: RecoverFormProps) {
   const router = useRouter();
   const [isLoading, setIsLoading] = React.useState<boolean>(false);
 
-  async function onSubmit() {
+  async function onSubmit(event: React.SyntheticEvent) {
+    event.preventDefault()
     setIsLoading(true);
 
     setTimeout(() => {

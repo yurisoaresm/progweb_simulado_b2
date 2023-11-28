@@ -1,5 +1,5 @@
 import { Card } from '@/components/ui/card';
-import { RecoverForm } from '@/pages/recover/components/recover-form';
+import { RecoverForm } from './components/recover-form';
 
 export const metadata = {
   title: 'Authentication',
